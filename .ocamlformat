@@ -1,0 +1,7 @@
+profile=default
+version=0.26.2
+# margin=100
+# type-decl=sparse
+# break-cases=all
+# if-then-else=keyword-first
+# break-fun-decl=fit-or-vertical

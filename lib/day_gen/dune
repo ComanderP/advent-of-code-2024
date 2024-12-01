@@ -1,0 +1,4 @@
+(executable
+ (name new_day)
+ (public_name new_day)
+ (libraries re))

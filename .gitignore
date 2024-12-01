@@ -27,3 +27,10 @@ setup.log
 
 # Local OPAM switch
 _opam/
+
+# AoC Tiles
+.aoc_tiles/*
+!.aoc_tiles/tiles/
+
+# AoC Data
+data/
