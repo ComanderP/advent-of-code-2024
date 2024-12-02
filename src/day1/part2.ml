@@ -14,12 +14,8 @@ let rec count n list =
       x + count n tl
 
 let solve (list1, list2) : string =
-  let list1 = List.sort Int.compare list1 in
-  let list2 = List.sort Int.compare list2 in
-  let res =
-    List.fold_left (fun acc n1 -> acc + (n1 * count n1 list2)) 0 list1
-  in
-  string_of_int res
+  let sum_similarity acc n = acc + (n * count n list2) in
+  List.fold_left sum_similarity 0 list1 |> string_of_int
 
 (*****************************************************************************)
 (*                            INPUT PROCESSING                               *)

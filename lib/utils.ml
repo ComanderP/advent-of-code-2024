@@ -60,22 +60,19 @@ let string_of_file = function
   | Example2 -> "ex2"
 
 let get_input day file =
-  let input_file =
-    "data/day" ^ string_of_day day ^ "/" ^ string_of_file file ^ ".txt"
-  in
+  let day = string_of_day day in
+  let file = string_of_file file in
+  let input_file = "data/day" ^ day ^ "/" ^ file ^ ".txt" in
   In_channel.with_open_text input_file In_channel.input_lines
 
-let test1 day parse solve expected =
-  let solution = get_input day Example1 |> parse |> solve in
+let test file day parse solve expected =
+  let solution = get_input day file |> parse |> solve in
   if solution <> expected then
     Printf.printf "Test failed, expected %s, got %s\n" expected solution
   else Printf.printf "Test passed, got %s\n" solution
 
-let test2 day parse solve expected =
-  let solution = get_input day Example2 |> parse |> solve in
-  if solution <> expected then
-    Printf.printf "Test failed, expected %s, got %s\n" expected solution
-  else Printf.printf "Test passed, got %s\n" solution
+let test1 day = test Example1 day
+let test2 day = test Example2 day
 
 (** [split_on_chars chars str] splits [str] on any of the characters in [chars]. *)
 let split_on_chars chars str =

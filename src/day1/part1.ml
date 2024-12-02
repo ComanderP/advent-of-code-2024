@@ -5,13 +5,12 @@ let day = D1
 (*****************************************************************************)
 (*                                SOLUTION                                   *)
 (*****************************************************************************)
+
+let sort = List.sort Int.compare
+
 let solve (list1, list2) : string =
-  let list1 = List.sort Int.compare list1 in
-  let list2 = List.sort Int.compare list2 in
-  let res =
-    List.fold_left2 (fun acc n1 n2 -> acc + Int.abs (n2 - n1)) 0 list1 list2
-  in
-  string_of_int res
+  let sumDistance acc n1 n2 = acc + Int.abs (n2 - n1) in
+  List.fold_left2 sumDistance 0 (sort list1) (sort list2) |> string_of_int
 
 (*****************************************************************************)
 (*                            INPUT PROCESSING                               *)
