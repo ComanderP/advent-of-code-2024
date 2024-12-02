@@ -16,20 +16,14 @@ let solve (list1, list2) : string =
 (*                            INPUT PROCESSING                               *)
 (*****************************************************************************)
 
-let extract_input (input : int list list) =
-  let rec aux input acc1 acc2 =
-    match input with
-    | [] -> (acc1, acc2)
-    | [ i1; i2 ] :: tl -> aux tl (i1 :: acc1) (i2 :: acc2)
-    | _ -> assert false
-  in
-  aux input [] []
+let tuple2 = function [ x; y ] -> (x, y) | _ -> assert false
 
 let parse (lines : string list) =
-  lines
-  |> List.map (String.split_on_char ' ')
-  |> List.map (List.filter_map int_of_string_opt)
-  |> extract_input
+  List.(
+    lines
+    |> map (String.split_on_char ' ')
+    |> map (filter_map int_of_string_opt)
+    |> map tuple2 |> split)
 
 (* Main function to read input and run the solution *)
 let () =
