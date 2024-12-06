@@ -74,7 +74,8 @@ let test file day parse solve expected =
 let test1 day = test Example1 day
 let test2 day = test Example2 day
 
-(** [split_on_chars chars str] splits [str] on any of the characters in [chars]. *)
+(** [split_on_chars chars str] splits [str] on any of the characters in the
+    list[chars]. *)
 let split_on_chars chars str =
   let rec aux acc curr = function
     | Seq.Nil -> curr :: acc
@@ -86,3 +87,17 @@ let split_on_chars chars str =
 
 (** [is_digit c] returns true if [c] is a digit. *)
 let is_digit (c : char) : bool = match c with '0' .. '9' -> true | _ -> false
+
+(** [sum l] returns the sum of the elements in the list [l]. *)
+let sum = List.fold_left ( + ) 0
+
+(** [take n l] returns the first [n] elements of the list [l]. *)
+let[@tail_mod_cons] rec take n = function
+  | [] -> []
+  | hd :: tl -> if n = 0 then [] else hd :: take (n - 1) tl
+
+(** [take_while f l] returns the longest prefix of the list [l] for which [f]
+    returns true. *)
+let[@tail_mod_cons] rec take_while f = function
+  | [] -> []
+  | hd :: tl -> if f hd then hd :: take_while f tl else []
