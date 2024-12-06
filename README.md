@@ -1,6 +1,6 @@
 <!-- AOC TILES BEGIN -->
 <h1 align="center">
-  2024 - 10 ⭐ - OCaml
+  2024 - 12 ⭐ - OCaml
 </h1>
 <a href="src/day1/part1.ml">
   <img src=".aoc_tiles/tiles/2024/01.png" width="161px">
@@ -16,5 +16,8 @@
 </a>
 <a href="src/day5/part1.ml">
   <img src=".aoc_tiles/tiles/2024/05.png" width="161px">
+</a>
+<a href="src/day6/part1.ml">
+  <img src=".aoc_tiles/tiles/2024/06.png" width="161px">
 </a>
 <!-- AOC TILES END -->
