@@ -101,3 +101,5 @@ let[@tail_mod_cons] rec take n = function
 let[@tail_mod_cons] rec take_while f = function
   | [] -> []
   | hd :: tl -> if f hd then hd :: take_while f tl else []
+
+let printf = Printf.printf
