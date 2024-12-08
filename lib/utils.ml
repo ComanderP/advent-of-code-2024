@@ -63,16 +63,21 @@ let get_input day file =
   let day = string_of_day day in
   let file = string_of_file file in
   let input_file = "data/day" ^ day ^ "/" ^ file ^ ".txt" in
-  In_channel.with_open_text input_file In_channel.input_lines
+  In_channel.(with_open_text input_file input_lines)
 
 let test file day parse solve expected =
   let solution = get_input day file |> parse |> solve in
   if solution <> expected then
-    Printf.printf "Test failed, expected %s, got %s\n" expected solution
-  else Printf.printf "Test passed, got %s\n" solution
+    Printf.eprintf "Test failed, expected %s, got %s\n" expected solution
+  else Printf.eprintf "Test passed, got %s\n" solution
 
 let test1 day = test Example1 day
 let test2 day = test Example2 day
+
+let append_char s c =
+  let b = Bytes.create 1 in
+  Bytes.unsafe_set b 0 c;
+  s ^ Bytes.unsafe_to_string b
 
 (** [split_on_chars chars str] splits [str] on any of the characters in the
     list[chars]. *)
@@ -81,7 +86,7 @@ let split_on_chars chars str =
     | Seq.Nil -> curr :: acc
     | Seq.Cons (hd, tl) ->
         if List.mem hd chars then aux (curr :: acc) "" (tl ())
-        else aux acc (curr ^ Char.escaped hd) (tl ())
+        else aux acc (append_char curr hd) (tl ())
   in
   aux [] "" (String.to_seq str ()) |> List.rev
 
@@ -101,5 +106,3 @@ let[@tail_mod_cons] rec take n = function
 let[@tail_mod_cons] rec take_while f = function
   | [] -> []
   | hd :: tl -> if f hd then hd :: take_while f tl else []
-
-let printf = Printf.printf

@@ -14,8 +14,6 @@ let go (row, col) (row', col') = (row + row', col + col')
 let out_of_bounds i bound array =
   i < bound || i >= Array.length array.(0) - bound
 
-let append_char acc c = acc ^ String.make 1 c
-
 let xmas array pos dir : bool =
   let rec aux acc n = function
     | _, _ when n = 4 -> acc = "XMAS"
