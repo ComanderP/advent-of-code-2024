@@ -68,8 +68,8 @@ let get_input day file =
 let test file day parse solve expected =
   let solution = get_input day file |> parse |> solve in
   if solution <> expected then
-    Printf.eprintf "Test failed, expected %s, got %s\n" expected solution
-  else Printf.eprintf "Test passed, got %s\n" solution
+    Printf.printf "Test failed, expected %s, got %s\n" expected solution
+  else Printf.printf "Test passed, got %s\n" solution
 
 let test1 day = test Example1 day
 let test2 day = test Example2 day
@@ -91,7 +91,21 @@ let split_on_chars chars str =
   aux [] "" (String.to_seq str ()) |> List.rev
 
 (** [is_digit c] returns true if [c] is a digit. *)
-let is_digit (c : char) : bool = match c with '0' .. '9' -> true | _ -> false
+let is_digit = function '0' .. '9' -> true | _ -> false
+
+(** [int_of_char_digit c] is the digit [c] as an integer. *)
+let int_of_char_digit = function
+  | '0' -> 0
+  | '1' -> 1
+  | '2' -> 2
+  | '3' -> 3
+  | '4' -> 4
+  | '5' -> 5
+  | '6' -> 6
+  | '7' -> 7
+  | '8' -> 8
+  | '9' -> 9
+  | _ -> raise (Invalid_argument "Not a digit")
 
 (** [sum l] returns the sum of the elements in the list [l]. *)
 let sum = List.fold_left ( + ) 0
@@ -106,3 +120,18 @@ let[@tail_mod_cons] rec take n = function
 let[@tail_mod_cons] rec take_while f = function
   | [] -> []
   | hd :: tl -> if f hd then hd :: take_while f tl else []
+
+(** [drop n l] returns the list [l] without the first [n] elements. *)
+let rec drop n = function
+  | [] -> []
+  | _ :: tl as l -> if n = 0 then l else drop (n - 1) tl
+
+let group_by f lst =
+  let tbl = Hashtbl.create 16 in
+  List.iter
+    (fun x ->
+      let k = f x in
+      let l = try Hashtbl.find tbl k with Not_found -> [] in
+      Hashtbl.replace tbl k (x :: l))
+    lst;
+  Hashtbl.to_seq_values tbl |> List.of_seq

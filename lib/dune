@@ -1,3 +1,8 @@
 (library
  (name utils)
- (public_name aoc2024))
+ (modules utils))
+
+(library
+ (name bench)
+ (libraries core_bench)
+ (modules bench))

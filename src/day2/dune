@@ -1,6 +1,6 @@
 (executables
  (names part1 part2)
  (public_names d2p1 d2p2)
- (libraries aoc2024)
+ (libraries utils)
  (flags
   (:standard -warn-error -A)))
