@@ -1,0 +1,6 @@
+(executables
+ (names part1 part2)
+ (public_names d9p1 d9p2)
+ (libraries utils)
+ (flags
+  (:standard -warn-error -A)))
