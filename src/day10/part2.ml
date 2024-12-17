@@ -13,7 +13,6 @@ module Position = struct
 end
 
 module Map = Map.Make (Position)
-module Pos_set = Set.Make (Position)
 
 let trailheads map = Map.filter (fun _ height -> height = 0) map
 
@@ -37,13 +36,13 @@ let solve input : string =
 (*****************************************************************************)
 (*                            INPUT PROCESSING                               *)
 (*****************************************************************************)
+
 let map_of_seqs seqs =
-  Seq.fold_lefti
-    (fun map row line ->
-      Seq.fold_lefti
-        (fun map col char -> Map.add (row, col) (int_of_char_digit char) map)
-        map line)
-    Map.empty seqs
+  let add_to_map row map col char =
+    Map.add (row, col) (int_of_char_digit char) map
+  in
+  let add_map_row map row = Seq.fold_lefti (add_to_map row) map in
+  Seq.fold_lefti add_map_row Map.empty seqs
 
 let parse (lines : string list) =
   lines |> List.map String.to_seq |> List.to_seq |> map_of_seqs
